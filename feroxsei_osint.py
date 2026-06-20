@@ -13685,7 +13685,7 @@ function _fillProfile(name, fromN, fromA, host, port, user, tls, ssl, delay, aut
   if (authType) document.getElementById('pf-auth-type').value = authType;
   toggleAuthFields();
 }}
-function prefillMailhog()       {{ _fillProfile('MailHog (Local Testing)','FEROXSEI Test','argus@localhost','localhost',1025,'',false,false,'0','none'); }}
+function prefillMailhog()       {{ _fillProfile('MailHog (Local Testing) set host as localhost. for docker set host as mailhog','FEROXSEI Test','argus@localhost','mailhog',1025,'',false,false,'0','none'); }}
 function prefillGmail()         {{ _fillProfile('Gmail','','your@gmail.com','smtp.gmail.com',587,'your@gmail.com',true,false,'2','basic'); alert('Gmail requires an App Password (not your account password).\\nEnable 2FA, then go to myaccount.google.com/apppasswords and create one.'); }}
 function prefillOutlookBasic()  {{ _fillProfile('Outlook Personal','','you@outlook.com','smtp-mail.outlook.com',587,'you@outlook.com',true,false,'2','basic'); alert('Personal Outlook.com: go to Outlook Settings > Mail > Sync email > enable POP/SMTP first.\\nUse your account password or App Password if 2FA is on.'); }}
 function prefillO365()          {{ _fillProfile('Office 365','','you@company.com','smtp.office365.com',587,'you@company.com',true,false,'2','basic'); }}
