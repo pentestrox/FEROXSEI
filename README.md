@@ -103,6 +103,7 @@ nano .env
 
 # Open
 http://localhost:5001
+username:password = admin:admin
 ```
 
 First visit: register your admin account. Full setup guide → [SETUP.md](SETUP.md)
