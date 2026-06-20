@@ -1,0 +1,114 @@
+version: "3.9"
+
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║   FEROXSEI OSINT — Docker Compose                                   ║
+# ║   Usage:  docker compose up -d                                   ║
+# ║   Open:   http://localhost:5001   (default admin/admin)          ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+services:
+
+  # ── Main FEROXSEI OSINT application ──────────────────────────────────
+  feroxsei:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: feroxsei-osint
+    restart: unless-stopped
+    ports:
+      - "${FEROXSEI_PORT:-5001}:5001"
+    environment:
+      # ── TOR routing ─────────────────────────────────────────────
+      TOR_EXTERNAL: "1"                     # use the separate tor service
+      TOR_SOCKS_HOST: "tor"
+      TOR_SOCKS_PORT: "9050"
+      TOR_CONTROL_PORT: "9051"
+      # ── API keys (override in .env file or pass here) ────────────
+      ANTHROPIC_KEY: "${ANTHROPIC_KEY:-}"
+      OPENAI_KEY: "${OPENAI_KEY:-}"
+      GITHUB_TOKEN: "${GITHUB_TOKEN:-}"
+      SHODAN_KEY: "${SHODAN_KEY:-}"
+      VIRUSTOTAL_KEY: "${VIRUSTOTAL_KEY:-}"
+      HUNTER_KEY: "${HUNTER_KEY:-}"
+      HIBP_KEY: "${HIBP_KEY:-}"
+      OTX_KEY: "${OTX_KEY:-}"
+      ABUSEIPDB_KEY: "${ABUSEIPDB_KEY:-}"
+      # ── App config ───────────────────────────────────────────────
+      FLASK_SECRET: "${FLASK_SECRET:-feroxsei-osint-super-secret-change-me}"
+      FEROXSEI_HOST: "0.0.0.0"
+      FEROXSEI_PORT: "5001"
+      PYTHONUNBUFFERED: "1"
+      # ── MailHog (Docker Compose service on same feroxsei_net) ───────
+      MAILHOG_HOST: "mailhog"
+      MAILHOG_PORT: "1025"
+    volumes:
+      - feroxsei_data:/data
+      # Mount source code for development so code changes take effect on restart
+      - .:/app
+    depends_on:
+      tor:
+        condition: service_healthy
+      mailhog:
+        condition: service_started
+    networks:
+      - feroxsei_net
+    extra_hosts:
+      # Linux: host.docker.internal is not auto-set — host-gateway maps it to the host IP
+      # Windows/Mac Docker Desktop: host.docker.internal is already auto-resolved;
+      # this entry is harmless on Docker Desktop 4.3+ and is silently ignored on older versions.
+      - "host.docker.internal:host-gateway"
+    cap_add:
+      - NET_ADMIN           # needed for some network probing modules
+    security_opt:
+      - no-new-privileges:true
+
+  # ── TOR anonymous proxy ───────────────────────────────────────────
+  # NOTE: use "docker compose" (v2 plugin), NOT "docker-compose" (v1).
+  # Install v2: sudo apt install docker-compose-plugin -y
+  tor:
+    image: osminogin/tor-simple:latest
+    container_name: feroxsei-tor
+    restart: unless-stopped
+    environment:
+      TOR_MaxCircuitDirtiness: "300"
+      TOR_NewCircuitPeriod: "60"
+    # Ports are NOT published to the host — the feroxsei container reaches
+    # tor via the internal Docker network (tor:9050 / tor:9051).
+    # Uncomment below ONLY if you need host access and those ports are free:
+    # ports:
+    #   - "19050:9050"
+    #   - "19051:9051"
+    volumes:
+      - tor_data:/var/lib/tor
+    networks:
+      - feroxsei_net
+    healthcheck:
+      test: ["CMD", "curl", "-s", "--socks5", "127.0.0.1:9050",
+             "--max-time", "10", "https://check.torproject.org"]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 30s
+
+  # ── MailHog — local email capture (SMTP :1025, Web UI :8025) ─────────
+  # All emails sent during testing are captured here — nothing reaches
+  # real inboxes. Open http://localhost:8025 to browse captured emails.
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: feroxsei-mailhog
+    restart: unless-stopped
+    ports:
+      - "${MAILHOG_SMTP_PORT:-1025}:1025"
+      - "${MAILHOG_WEB_PORT:-8025}:8025"
+    networks:
+      - feroxsei_net
+
+networks:
+  feroxsei_net:
+    driver: bridge
+
+volumes:
+  feroxsei_data:
+    driver: local
+  tor_data:
+    driver: local

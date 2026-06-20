@@ -1,0 +1,1549 @@
+[
+  {
+    "id": "op001",
+    "name": "AWS Access Key",
+    "category": "secrets",
+    "pattern": "(?:A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}",
+    "severity": "critical",
+    "description": "AWS Access Key ID exposed",
+    "tags": [
+      "aws",
+      "cloud",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op002",
+    "name": "AWS Secret Key",
+    "category": "secrets",
+    "pattern": "(?i)aws.{0,20}['\"][0-9a-zA-Z/+]{40}['\"]",
+    "severity": "critical",
+    "description": "AWS Secret Access Key",
+    "tags": [
+      "aws",
+      "cloud",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op003",
+    "name": "GitHub Token",
+    "category": "secrets",
+    "pattern": "ghp_[0-9a-zA-Z]{36}|github_pat_[0-9a-zA-Z_]{82}",
+    "severity": "critical",
+    "description": "GitHub Personal Access Token",
+    "tags": [
+      "github",
+      "token",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op004",
+    "name": "Google API Key",
+    "category": "secrets",
+    "pattern": "AIza[0-9A-Za-z\\-_]{35}",
+    "severity": "high",
+    "description": "Google API Key",
+    "tags": [
+      "google",
+      "api-key",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op005",
+    "name": "Stripe Secret Key",
+    "category": "secrets",
+    "pattern": "sk_live_[0-9a-zA-Z]{24,}",
+    "severity": "critical",
+    "description": "Stripe Live Secret Key",
+    "tags": [
+      "stripe",
+      "payment",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op006",
+    "name": "Stripe Publishable Key",
+    "category": "secrets",
+    "pattern": "pk_live_[0-9a-zA-Z]{24,}",
+    "severity": "medium",
+    "description": "Stripe Live Publishable Key",
+    "tags": [
+      "stripe",
+      "payment"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op007",
+    "name": "Twilio API Key",
+    "category": "secrets",
+    "pattern": "SK[0-9a-fA-F]{32}",
+    "severity": "high",
+    "description": "Twilio API Key",
+    "tags": [
+      "twilio",
+      "api-key",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op008",
+    "name": "Slack Token",
+    "category": "secrets",
+    "pattern": "xox[baprs]-[0-9a-zA-Z]{10,48}",
+    "severity": "critical",
+    "description": "Slack Bot/App/User Token",
+    "tags": [
+      "slack",
+      "token",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op009",
+    "name": "Slack Webhook",
+    "category": "secrets",
+    "pattern": "https://hooks\\.slack\\.com/services/T[a-zA-Z0-9_]{8}/B[a-zA-Z0-9_]{8}/[a-zA-Z0-9_]{24}",
+    "severity": "high",
+    "description": "Slack Incoming Webhook URL",
+    "tags": [
+      "slack",
+      "webhook"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op010",
+    "name": "SendGrid API Key",
+    "category": "secrets",
+    "pattern": "SG\\.[a-zA-Z0-9_\\-]{22}\\.[a-zA-Z0-9_\\-]{43}",
+    "severity": "high",
+    "description": "SendGrid API Key",
+    "tags": [
+      "sendgrid",
+      "email",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op011",
+    "name": "Mailgun API Key",
+    "category": "secrets",
+    "pattern": "key-[0-9a-zA-Z]{32}",
+    "severity": "high",
+    "description": "Mailgun API Key",
+    "tags": [
+      "mailgun",
+      "email",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op012",
+    "name": "Heroku API Key",
+    "category": "secrets",
+    "pattern": "(?i)(?:heroku[_\\-\\s]*(?:api[_\\-\\s]*key|token|secret|key)[_\\-\\s]*[=:\\s]+['\\\"]?|HEROKU_API_KEY=['\\\"]?)[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}",
+    "severity": "high",
+    "description": "Heroku API Key with context (requires 'heroku' keyword near UUID to prevent generic UUID false positives)",
+    "tags": [
+      "heroku",
+      "cloud",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op013",
+    "name": "Private RSA Key",
+    "category": "secrets",
+    "pattern": "-----BEGIN RSA PRIVATE KEY-----",
+    "severity": "critical",
+    "description": "RSA Private Key exposed",
+    "tags": [
+      "crypto",
+      "private-key",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op014",
+    "name": "Private EC Key",
+    "category": "secrets",
+    "pattern": "-----BEGIN EC PRIVATE KEY-----",
+    "severity": "critical",
+    "description": "EC Private Key exposed",
+    "tags": [
+      "crypto",
+      "private-key",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op015",
+    "name": "Private OpenSSH Key",
+    "category": "secrets",
+    "pattern": "-----BEGIN OPENSSH PRIVATE KEY-----",
+    "severity": "critical",
+    "description": "OpenSSH Private Key",
+    "tags": [
+      "ssh",
+      "private-key",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op016",
+    "name": "PGP Private Key",
+    "category": "secrets",
+    "pattern": "-----BEGIN PGP PRIVATE KEY BLOCK-----",
+    "severity": "critical",
+    "description": "PGP Private Key Block",
+    "tags": [
+      "pgp",
+      "crypto",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op017",
+    "name": "JWT Token",
+    "category": "secrets",
+    "pattern": "eyJ[A-Za-z0-9_-]{10,}\\.eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}",
+    "severity": "medium",
+    "description": "JSON Web Token",
+    "tags": [
+      "jwt",
+      "auth",
+      "token"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op018",
+    "name": "Basic Auth in URL",
+    "category": "secrets",
+    "pattern": "https?://[a-zA-Z0-9]+:[a-zA-Z0-9@#$%^&*]+@",
+    "severity": "high",
+    "description": "Credentials embedded in URL",
+    "tags": [
+      "credentials",
+      "url",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op019",
+    "name": "Password in Config",
+    "category": "secrets",
+    "pattern": "(?i)(?:password|passwd|pwd|secret)\\s*[=:]\\s*['\"][^'\"]{6,}['\"]",
+    "severity": "high",
+    "description": "Hardcoded password in configuration",
+    "tags": [
+      "password",
+      "config",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op020",
+    "name": "Database Connection String",
+    "category": "secrets",
+    "pattern": "(?i)(?:mysql|postgres|mongodb|redis|mssql)://[^\\s'\"<>]{10,}",
+    "severity": "critical",
+    "description": "Database connection string with credentials",
+    "tags": [
+      "database",
+      "connection",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op021",
+    "name": "Firebase URL",
+    "category": "secrets",
+    "pattern": "https://[a-z0-9-]+\\.firebaseio\\.com",
+    "severity": "medium",
+    "description": "Firebase Realtime Database URL",
+    "tags": [
+      "firebase",
+      "google",
+      "cloud"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op022",
+    "name": "Firebase API Key",
+    "category": "secrets",
+    "pattern": "(?i)firebase.*['\"][A-Za-z0-9_-]{39}['\"]",
+    "severity": "high",
+    "description": "Firebase API Key",
+    "tags": [
+      "firebase",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op023",
+    "name": "Cloudinary API Key",
+    "category": "secrets",
+    "pattern": "cloudinary://[0-9]+:[A-Za-z0-9_\\-]+@",
+    "severity": "high",
+    "description": "Cloudinary API credentials",
+    "tags": [
+      "cloudinary",
+      "storage",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op024",
+    "name": "Shopify Token",
+    "category": "secrets",
+    "pattern": "shpat_[a-fA-F0-9]{32}|shpss_[a-fA-F0-9]{32}",
+    "severity": "critical",
+    "description": "Shopify Access Token",
+    "tags": [
+      "shopify",
+      "ecommerce",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op025",
+    "name": "npm Token",
+    "category": "secrets",
+    "pattern": "(?i)npm_[A-Za-z0-9]{36}",
+    "severity": "high",
+    "description": "npm Access Token",
+    "tags": [
+      "npm",
+      "token",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op026",
+    "name": "Docker Hub Token",
+    "category": "secrets",
+    "pattern": "dckr_pat_[A-Za-z0-9_-]{27}",
+    "severity": "high",
+    "description": "Docker Hub Personal Access Token",
+    "tags": [
+      "docker",
+      "token",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op027",
+    "name": "Twitch Token",
+    "category": "secrets",
+    "pattern": "oauth:[a-z0-9]{30}",
+    "severity": "medium",
+    "description": "Twitch OAuth Token",
+    "tags": [
+      "twitch",
+      "oauth",
+      "token"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op028",
+    "name": "Azure Storage Key",
+    "category": "secrets",
+    "pattern": "DefaultEndpointsProtocol=https;AccountName=[^;]+;AccountKey=[A-Za-z0-9+/=]{86,88}",
+    "severity": "critical",
+    "description": "Azure Storage Account Key",
+    "tags": [
+      "azure",
+      "cloud",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op029",
+    "name": "Telegram Bot Token",
+    "category": "secrets",
+    "pattern": "[0-9]{8,10}:[A-Za-z0-9_-]{35}",
+    "severity": "high",
+    "description": "Telegram Bot API Token",
+    "tags": [
+      "telegram",
+      "bot",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op030",
+    "name": "PayPal Client Secret",
+    "category": "secrets",
+    "pattern": "(?i)paypal.{0,20}['\"][a-zA-Z0-9]{32,64}['\"]",
+    "severity": "critical",
+    "description": "PayPal Client Secret",
+    "tags": [
+      "paypal",
+      "payment",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op031",
+    "name": "Git Config Exposed",
+    "category": "git-exposure",
+    "pattern": "\\.git/config",
+    "severity": "critical",
+    "description": "Git config file accessible - may contain remote URLs with credentials",
+    "tags": [
+      "git",
+      "exposure",
+      "config"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op032",
+    "name": "Git HEAD Exposed",
+    "category": "git-exposure",
+    "pattern": "\\.git/HEAD",
+    "severity": "high",
+    "description": "Git HEAD file accessible - repository structure exposed",
+    "tags": [
+      "git",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op033",
+    "name": "Git Credentials Store",
+    "category": "git-exposure",
+    "pattern": "\\.git-credentials",
+    "severity": "critical",
+    "description": "Git credentials file exposed",
+    "tags": [
+      "git",
+      "credentials",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op034",
+    "name": "Gitignore Exposed",
+    "category": "git-exposure",
+    "pattern": "\\.gitignore",
+    "severity": "low",
+    "description": ".gitignore reveals project structure",
+    "tags": [
+      "git",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op035",
+    "name": "GitLab CI Config",
+    "category": "git-exposure",
+    "pattern": "\\.gitlab-ci\\.yml",
+    "severity": "medium",
+    "description": "GitLab CI configuration may contain secrets",
+    "tags": [
+      "gitlab",
+      "ci",
+      "config"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op036",
+    "name": "GitHub Actions",
+    "category": "git-exposure",
+    "pattern": "\\.github/workflows/.*\\.ya?ml",
+    "severity": "medium",
+    "description": "GitHub Actions workflow config",
+    "tags": [
+      "github",
+      "ci",
+      "config"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op037",
+    "name": "Environment File",
+    "category": "file-exposure",
+    "pattern": "\\.env(?:\\.local|\\.production|\\.staging|\\.backup|\\.bak|~)?$",
+    "severity": "critical",
+    "description": ".env file exposed - likely contains credentials",
+    "tags": [
+      "env",
+      "credentials",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op038",
+    "name": "Backup Files",
+    "category": "file-exposure",
+    "pattern": "(?i)(?:backup|dump|old|copy|bak|orig|save).*\\.(?:sql|tar|gz|zip|bz2|7z|tgz|tar\\.gz|rar|db|sqlite)",
+    "severity": "high",
+    "description": "Database or archive backup file exposed",
+    "tags": [
+      "backup",
+      "data",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op039",
+    "name": "Log Files",
+    "category": "file-exposure",
+    "pattern": "(?i)(?:access|error|debug|app|application|server|system)\\.log",
+    "severity": "medium",
+    "description": "Server log file accessible",
+    "tags": [
+      "logs",
+      "exposure",
+      "info"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op040",
+    "name": "PHP Config",
+    "category": "file-exposure",
+    "pattern": "(?:wp-config|config|configuration|database|db_config)\\.php(?:\\.bak|~)?",
+    "severity": "critical",
+    "description": "PHP configuration file exposed",
+    "tags": [
+      "php",
+      "config",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op041",
+    "name": "htpasswd File",
+    "category": "file-exposure",
+    "pattern": "\\.htpasswd",
+    "severity": "critical",
+    "description": "Apache htpasswd file exposed with hashed passwords",
+    "tags": [
+      "apache",
+      "credentials",
+      "hash"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op042",
+    "name": "DS_Store",
+    "category": "file-exposure",
+    "pattern": "\\.DS_Store",
+    "severity": "low",
+    "description": "macOS .DS_Store reveals directory structure",
+    "tags": [
+      "macos",
+      "recon",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op043",
+    "name": "Swagger API Docs",
+    "category": "file-exposure",
+    "pattern": "(?:swagger|openapi)(?:\\.json|\\.yaml|\\.yml)|/api-docs|/swagger-ui",
+    "severity": "medium",
+    "description": "API documentation publicly accessible",
+    "tags": [
+      "api",
+      "swagger",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op044",
+    "name": "GraphQL Endpoint",
+    "category": "file-exposure",
+    "pattern": "/graphql(?:i|ql)?(?:\\?|$)",
+    "severity": "medium",
+    "description": "GraphQL endpoint accessible",
+    "tags": [
+      "graphql",
+      "api",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op045",
+    "name": "phpinfo Exposed",
+    "category": "file-exposure",
+    "pattern": "phpinfo\\.php|info\\.php|test\\.php",
+    "severity": "high",
+    "description": "PHP info page exposes server configuration",
+    "tags": [
+      "php",
+      "info",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op046",
+    "name": "Admin Panels",
+    "category": "file-exposure",
+    "pattern": "(?i)/(?:admin|administrator|wp-admin|phpmyadmin|adminer|cpanel|plesk|webmin|manager|management|console|portal)(?:/|$)",
+    "severity": "medium",
+    "description": "Admin panel detected",
+    "tags": [
+      "admin",
+      "exposure",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op047",
+    "name": "Email Address",
+    "category": "personal-info",
+    "pattern": "[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}",
+    "severity": "low",
+    "description": "Email address discovered",
+    "tags": [
+      "email",
+      "pii",
+      "identity"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op048",
+    "name": "Phone Number (US)",
+    "category": "personal-info",
+    "pattern": "(?<!\\d)(?:\\+1[-\\s]?)?(?:\\([0-9]{3}\\)|[0-9]{3})[-\\s][0-9]{3}[-\\s][0-9]{4}(?!\\d)",
+    "severity": "low",
+    "description": "US phone number with proper formatting (dashes or spaces required to reduce false positives)",
+    "tags": [
+      "phone",
+      "pii",
+      "identity"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op049",
+    "name": "Social Security Number",
+    "category": "personal-info",
+    "pattern": "\\b[0-9]{3}-[0-9]{2}-[0-9]{4}\\b",
+    "severity": "critical",
+    "description": "US Social Security Number",
+    "tags": [
+      "ssn",
+      "pii",
+      "identity"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op050",
+    "name": "Credit Card Number",
+    "category": "personal-info",
+    "pattern": "\\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12})\\b",
+    "severity": "critical",
+    "description": "Credit card number",
+    "tags": [
+      "credit-card",
+      "pii",
+      "payment"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op051",
+    "name": "AWS S3 Bucket URL",
+    "category": "cloud",
+    "pattern": "(?:https?://)?(?:[a-z0-9][a-z0-9\\-]{1,61}[a-z0-9]\\.)?s3(?:[.\\-][a-z0-9\\-]+)?\\.amazonaws\\.com",
+    "severity": "medium",
+    "description": "AWS S3 bucket URL referenced",
+    "tags": [
+      "aws",
+      "s3",
+      "cloud",
+      "storage"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op052",
+    "name": "AWS Instance Metadata",
+    "category": "cloud",
+    "pattern": "169\\.254\\.169\\.254",
+    "severity": "critical",
+    "description": "AWS instance metadata service IP referenced",
+    "tags": [
+      "aws",
+      "ssrf",
+      "cloud"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op053",
+    "name": "GCP Metadata Service",
+    "category": "cloud",
+    "pattern": "metadata\\.google\\.internal|169\\.254\\.169\\.254",
+    "severity": "critical",
+    "description": "GCP metadata service reference",
+    "tags": [
+      "gcp",
+      "ssrf",
+      "cloud"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op054",
+    "name": "Azure Storage URL",
+    "category": "cloud",
+    "pattern": "[a-z0-9]+\\.blob\\.core\\.windows\\.net",
+    "severity": "medium",
+    "description": "Azure Blob Storage URL",
+    "tags": [
+      "azure",
+      "storage",
+      "cloud"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op055",
+    "name": "Google Cloud Storage",
+    "category": "cloud",
+    "pattern": "storage\\.googleapis\\.com/[a-z0-9\\-_]+",
+    "severity": "medium",
+    "description": "Google Cloud Storage bucket URL",
+    "tags": [
+      "gcp",
+      "storage",
+      "cloud"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op056",
+    "name": "DigitalOcean Spaces",
+    "category": "cloud",
+    "pattern": "[a-z0-9\\-]+\\.(?:[a-z0-9\\-]+\\.)?digitaloceanspaces\\.com",
+    "severity": "medium",
+    "description": "DigitalOcean Spaces URL",
+    "tags": [
+      "digitalocean",
+      "storage",
+      "cloud"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op057",
+    "name": "Internal IP Range",
+    "category": "infrastructure",
+    "pattern": "(?:10\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}|172\\.(?:1[6-9]|2[0-9]|3[01])\\.[0-9]{1,3}\\.[0-9]{1,3}|192\\.168\\.[0-9]{1,3}\\.[0-9]{1,3})",
+    "severity": "medium",
+    "description": "Internal/private IP address exposed",
+    "tags": [
+      "internal-ip",
+      "network",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op058",
+    "name": "Stack Trace",
+    "category": "infrastructure",
+    "pattern": "(?i)(?:stack trace|traceback|at [a-zA-Z]+\\.[a-zA-Z]+\\(.*\\.java:[0-9]+\\)|File \".+\\.py\", line [0-9]+)",
+    "severity": "medium",
+    "description": "Application stack trace exposed",
+    "tags": [
+      "error",
+      "exposure",
+      "debug"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op059",
+    "name": "SQL Error",
+    "category": "infrastructure",
+    "pattern": "(?i)(?:SQL syntax|mysql_fetch|ORA-[0-9]{5}|PostgreSQL.*ERROR|SQLite.*error|SQLSTATE)",
+    "severity": "high",
+    "description": "SQL error message exposed",
+    "tags": [
+      "sql",
+      "error",
+      "exposure",
+      "injection"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op060",
+    "name": "PHP Error",
+    "category": "infrastructure",
+    "pattern": "(?i)(?:Warning: |Fatal error: |Parse error: |Notice: )(?:include|require|mysql|pg_)",
+    "severity": "medium",
+    "description": "PHP error message exposed",
+    "tags": [
+      "php",
+      "error",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op061",
+    "name": "Debug Mode",
+    "category": "infrastructure",
+    "pattern": "(?i)(?:debug|development) mode|DEBUG=True|APP_DEBUG=true",
+    "severity": "high",
+    "description": "Application running in debug mode",
+    "tags": [
+      "debug",
+      "exposure",
+      "config"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op062",
+    "name": "Server Header",
+    "category": "infrastructure",
+    "pattern": "(?i)Server:\\s*(?:Apache|nginx|IIS|Tomcat|Jetty|Express|Kestrel)[/\\s][0-9]",
+    "severity": "low",
+    "description": "Server version disclosed in headers",
+    "tags": [
+      "server",
+      "version",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op063",
+    "name": "WordPress Version",
+    "category": "technology",
+    "pattern": "(?i)wp-includes/js/wp-embed\\.min\\.js\\?ver=([0-9.]+)",
+    "severity": "low",
+    "description": "WordPress version fingerprinted",
+    "tags": [
+      "wordpress",
+      "cms",
+      "version"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op064",
+    "name": "Drupal Version",
+    "category": "technology",
+    "pattern": "(?i)Drupal\\.settings|drupal\\.js\\?[a-z0-9]+|(?:X-Generator|Generator):\\s*Drupal",
+    "severity": "low",
+    "description": "Drupal CMS detected",
+    "tags": [
+      "drupal",
+      "cms",
+      "version"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op065",
+    "name": "Joomla Detection",
+    "category": "technology",
+    "pattern": "(?i)/media/jui/|/components/com_|Joomla!",
+    "severity": "low",
+    "description": "Joomla CMS detected",
+    "tags": [
+      "joomla",
+      "cms",
+      "version"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op066",
+    "name": "Laravel Debug",
+    "category": "technology",
+    "pattern": "(?i)Whoops!|laravel\\.log|APP_KEY=",
+    "severity": "high",
+    "description": "Laravel framework debug or config exposed",
+    "tags": [
+      "laravel",
+      "php",
+      "debug"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op067",
+    "name": "Django Settings",
+    "category": "technology",
+    "pattern": "(?i)DJANGO_SETTINGS_MODULE|django\\.core\\.exceptions|DEBUG = True",
+    "severity": "high",
+    "description": "Django configuration exposed",
+    "tags": [
+      "django",
+      "python",
+      "debug"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op068",
+    "name": "Spring Boot Actuator",
+    "category": "technology",
+    "pattern": "/actuator(?:/|$)|/actuator/env|/actuator/health",
+    "severity": "high",
+    "description": "Spring Boot Actuator endpoint exposed",
+    "tags": [
+      "spring",
+      "java",
+      "actuator",
+      "api"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op069",
+    "name": "robots.txt Disallow",
+    "category": "recon",
+    "pattern": "Disallow:\\s*/[^\\s]+",
+    "severity": "info",
+    "description": "robots.txt disallowed paths reveal hidden directories",
+    "tags": [
+      "robots",
+      "recon",
+      "paths"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op070",
+    "name": "Sitemap URL",
+    "category": "recon",
+    "pattern": "(?i)sitemap(?:_index)?\\.xml",
+    "severity": "info",
+    "description": "Sitemap file discovered - reveals all URL paths",
+    "tags": [
+      "sitemap",
+      "recon",
+      "paths"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op071",
+    "name": "Directory Listing",
+    "category": "recon",
+    "pattern": "(?i)Index of /|Parent Directory|\\[DIR\\]\\s+<a|<title>Index of",
+    "severity": "medium",
+    "description": "Directory listing enabled - file enumeration possible",
+    "tags": [
+      "directory-listing",
+      "exposure",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op072",
+    "name": "Google Analytics ID",
+    "category": "recon",
+    "pattern": "UA-[0-9]{4,10}-[0-9]{1,4}|G-[A-Z0-9]{10}",
+    "severity": "info",
+    "description": "Google Analytics ID - can cross-correlate sites",
+    "tags": [
+      "analytics",
+      "tracking",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op073",
+    "name": "Source Map Exposed",
+    "category": "recon",
+    "pattern": "\\.js\\.map|sourceMappingURL=",
+    "severity": "medium",
+    "description": "JavaScript source maps expose original source code",
+    "tags": [
+      "sourcemap",
+      "js",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op074",
+    "name": "Interesting URL Patterns",
+    "category": "recon",
+    "pattern": "(?i)/(?:api|v[0-9]+|rest|graphql|rpc|endpoint|service|data|export|import|upload|download|report|admin|internal|private|test|dev|staging|debug|backup|old)(?:/|$|\\?)",
+    "severity": "info",
+    "description": "Interesting URL path discovered",
+    "tags": [
+      "api",
+      "paths",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op075",
+    "name": "CORS Wildcard",
+    "category": "infrastructure",
+    "pattern": "Access-Control-Allow-Origin:\\s*\\*",
+    "severity": "medium",
+    "description": "CORS wildcard header - any origin allowed",
+    "tags": [
+      "cors",
+      "security",
+      "headers"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op076",
+    "name": "Sensitive Comments",
+    "category": "recon",
+    "pattern": "(?i)<!--.*?(?:todo|fixme|hack|bug|password|secret|admin|remove|credentials|key|api|token|auth).*?-->",
+    "severity": "medium",
+    "description": "Sensitive information in HTML comments",
+    "tags": [
+      "comments",
+      "exposure",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op077",
+    "name": "Wayback Interesting Files",
+    "category": "recon",
+    "pattern": "(?i)\\.(?:sql|bak|backup|dump|old|orig|copy|save|tar\\.gz|zip|7z|rar|gz|tgz)$",
+    "severity": "high",
+    "description": "Interesting file type found in Wayback Machine archive",
+    "tags": [
+      "wayback",
+      "backup",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op078",
+    "name": "Username Pattern",
+    "category": "personal-info",
+    "pattern": "(?i)[\"'](?:user(?:name)?|login|account|profile|handle)[\"']\\s*[=:]\\s*[\"']([a-zA-Z0-9._\\-]{3,32})[\"']|(?:^|\\s)(?:user(?:name)?|login)=([a-zA-Z0-9._\\-]{3,32})(?:\\s|$|&)",
+    "severity": "info",
+    "description": "Username or login handle identified",
+    "tags": [
+      "username",
+      "identity",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op079",
+    "name": "API Endpoint with Key Param",
+    "category": "secrets",
+    "pattern": "(?i)[?&](?:api[_-]?key|apikey|access[_-]?token|auth[_-]?token|secret|key)=[a-zA-Z0-9_\\-]{8,}",
+    "severity": "high",
+    "description": "API key or token passed in URL parameters",
+    "tags": [
+      "api-key",
+      "url",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op080",
+    "name": "Docker Compose Exposed",
+    "category": "file-exposure",
+    "pattern": "docker-compose(?:\\.override|\\.prod|\\.staging)?\\.ya?ml",
+    "severity": "medium",
+    "description": "Docker Compose configuration file exposed",
+    "tags": [
+      "docker",
+      "config",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op081",
+    "name": "Kubernetes Config",
+    "category": "cloud",
+    "pattern": "(?i)kubectl|kubeconfig|\\.kube/config|kubernetes\\.io",
+    "severity": "high",
+    "description": "Kubernetes configuration reference",
+    "tags": [
+      "kubernetes",
+      "k8s",
+      "cloud",
+      "config"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op082",
+    "name": "Terraform State",
+    "category": "cloud",
+    "pattern": "terraform\\.tfstate|\\.terraform/",
+    "severity": "critical",
+    "description": "Terraform state file - contains all infrastructure secrets",
+    "tags": [
+      "terraform",
+      "iac",
+      "secret",
+      "cloud"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op083",
+    "name": "Ansible Vault",
+    "category": "secrets",
+    "pattern": "\\$ANSIBLE_VAULT;[0-9\\.]+;AES256",
+    "severity": "critical",
+    "description": "Ansible Vault encrypted data block",
+    "tags": [
+      "ansible",
+      "vault",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op084",
+    "name": "Internal Domain Reference",
+    "category": "infrastructure",
+    "pattern": "(?i)(?:corp|internal|intranet|local|lan|private|dev|staging|preprod|qa)\\.(?:[a-z]{2,})\\.(?:com|net|org|io)",
+    "severity": "medium",
+    "description": "Internal domain name referenced in public content",
+    "tags": [
+      "internal",
+      "domain",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op085",
+    "name": "S3 Bucket Listing",
+    "category": "cloud",
+    "pattern": "<ListBucketResult|<Contents><Key>",
+    "severity": "high",
+    "description": "S3 bucket with public listing enabled",
+    "tags": [
+      "aws",
+      "s3",
+      "exposure",
+      "listing"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op086",
+    "name": "LDAP URL",
+    "category": "infrastructure",
+    "pattern": "ldaps?://[^\\s'\"]+",
+    "severity": "high",
+    "description": "LDAP URL exposed - may reveal AD structure",
+    "tags": [
+      "ldap",
+      "active-directory",
+      "infrastructure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op087",
+    "name": "SMTP Credentials",
+    "category": "secrets",
+    "pattern": "(?i)(?:smtp[._-]?(?:host|user|pass|password|port|server))\\s*[=:]\\s*['\"]?[^\\s'\"]{4,}",
+    "severity": "high",
+    "description": "SMTP credentials in configuration",
+    "tags": [
+      "smtp",
+      "email",
+      "credentials",
+      "secret"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op088",
+    "name": "OAuth Client Secret",
+    "category": "secrets",
+    "pattern": "(?i)(?:client[_-]?secret|oauth[_-]?secret)\\s*[=:]\\s*['\"][a-zA-Z0-9_\\-]{20,}['\"]",
+    "severity": "critical",
+    "description": "OAuth client secret exposed",
+    "tags": [
+      "oauth",
+      "secret",
+      "auth"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op089",
+    "name": "Exposed Backup DB",
+    "category": "file-exposure",
+    "pattern": "(?i)(?:database|db|mysql|postgres|mongo|sqlite|data)\\.(?:sql|sqlite|sqlite3|db|dump|bak|backup)",
+    "severity": "critical",
+    "description": "Database backup file exposed",
+    "tags": [
+      "database",
+      "backup",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op090",
+    "name": "Certificate Private Key",
+    "category": "secrets",
+    "pattern": "-----BEGIN CERTIFICATE-----",
+    "severity": "info",
+    "description": "SSL/TLS certificate found",
+    "tags": [
+      "ssl",
+      "certificate",
+      "crypto"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op091",
+    "name": "Subversion Config",
+    "category": "git-exposure",
+    "pattern": "\\.svn/entries|\\.svn/wc\\.db",
+    "severity": "high",
+    "description": "SVN repository metadata exposed",
+    "tags": [
+      "svn",
+      "vcs",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op092",
+    "name": "WP Debug Log",
+    "category": "file-exposure",
+    "pattern": "(?:wp-content/debug\\.log|debug\\.log)",
+    "severity": "high",
+    "description": "WordPress debug log exposed",
+    "tags": [
+      "wordpress",
+      "debug",
+      "log",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op093",
+    "name": "Exposed phpMyAdmin",
+    "category": "file-exposure",
+    "pattern": "(?i)/phpmyadmin|/pma|/mysql|/mysqladmin",
+    "severity": "high",
+    "description": "phpMyAdmin installation detected",
+    "tags": [
+      "phpmyadmin",
+      "mysql",
+      "admin",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op094",
+    "name": "Secrets in URL Path",
+    "category": "secrets",
+    "pattern": "(?i)/(?:api|v[0-9]+)/.*(?:token|key|secret|password|credential)=[^&\\s]+",
+    "severity": "high",
+    "description": "Secret value in URL path",
+    "tags": [
+      "secret",
+      "url",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op095",
+    "name": "IDOR Pattern",
+    "category": "recon",
+    "pattern": "(?i)/(?:user|account|order|invoice|document|file|record|id|profile)/(?:[0-9]+|[a-f0-9\\-]{36})",
+    "severity": "medium",
+    "description": "Potential IDOR endpoint with sequential or UUID identifier",
+    "tags": [
+      "idor",
+      "api",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op096",
+    "name": "Wayback Deleted Page",
+    "category": "recon",
+    "pattern": "(?i)/(?:deleted|removed|archived|old|deprecated|legacy)(?:/|\\.|\\?|#|$)|(?:deleted|removed|archived|deprecated|legacy)\\.(?:html?|php|asp|aspx|jsp|txt|bak|cfg|sql|log|gz|zip)",
+    "severity": "info",
+    "description": "Deleted or archived page found in Wayback Machine",
+    "tags": [
+      "wayback",
+      "archive",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op097",
+    "name": "Social Media Links",
+    "category": "recon",
+    "pattern": "(?i)(?:twitter|instagram|facebook|linkedin|youtube|tiktok|github|telegram)\\.com/([a-zA-Z0-9._\\-]+)",
+    "severity": "info",
+    "description": "Social media profile URL found",
+    "tags": [
+      "social",
+      "identity",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op098",
+    "name": "Exposed Config YAML",
+    "category": "file-exposure",
+    "pattern": "(?i)(?:config|settings|application|app|secrets?|credentials?)\\.ya?ml",
+    "severity": "high",
+    "description": "YAML configuration file exposed",
+    "tags": [
+      "yaml",
+      "config",
+      "exposure"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op099",
+    "name": "Firebase Rules Exposed",
+    "category": "cloud",
+    "pattern": "firebase\\.json|database\\.rules\\.json|\\.firebaserc",
+    "severity": "high",
+    "description": "Firebase project configuration exposed",
+    "tags": [
+      "firebase",
+      "cloud",
+      "config"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op100",
+    "name": "Package JSON Exposed",
+    "category": "recon",
+    "pattern": "package\\.json|package-lock\\.json|yarn\\.lock|composer\\.lock",
+    "severity": "low",
+    "description": "Package manifest exposed - reveals dependencies and versions",
+    "tags": [
+      "npm",
+      "dependencies",
+      "recon",
+      "version"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op101",
+    "name": "CI/CD Config",
+    "category": "git-exposure",
+    "pattern": "\\.travis\\.yml|Jenkinsfile|\\.circleci/config\\.yml|\\.drone\\.yml|bitbucket-pipelines\\.yml",
+    "severity": "medium",
+    "description": "CI/CD pipeline configuration exposed",
+    "tags": [
+      "ci",
+      "cd",
+      "pipeline",
+      "config"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op102",
+    "name": "Nginx Config",
+    "category": "file-exposure",
+    "pattern": "nginx\\.conf|sites-available/|sites-enabled/",
+    "severity": "medium",
+    "description": "Nginx configuration file exposed",
+    "tags": [
+      "nginx",
+      "webserver",
+      "config"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op103",
+    "name": "Apache Config",
+    "category": "file-exposure",
+    "pattern": "\\.htaccess|httpd\\.conf|apache2\\.conf",
+    "severity": "medium",
+    "description": "Apache configuration file exposed",
+    "tags": [
+      "apache",
+      "webserver",
+      "config"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op104",
+    "name": "Exposed Error Page",
+    "category": "infrastructure",
+    "pattern": "(?i)(?:500 Internal Server Error|502 Bad Gateway|503 Service Unavailable|404 Not Found).*(?:stack|trace|exception|error)",
+    "severity": "low",
+    "description": "Verbose error page with technical details",
+    "tags": [
+      "error",
+      "exposure",
+      "debug"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op105",
+    "name": "Open Redirect",
+    "category": "infrastructure",
+    "pattern": "(?i)[?&](?:url|redirect|return|next|continue|destination|dest|go|path|to|target)=https?://",
+    "severity": "medium",
+    "description": "Potential open redirect parameter in URL",
+    "tags": [
+      "redirect",
+      "open-redirect",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op106",
+    "name": "Reflected Parameter",
+    "category": "recon",
+    "pattern": "(?i)[?&](?:q|query|search|s|keyword|term|find|input|data|payload|msg|message|text)=[^&]{3,}",
+    "severity": "info",
+    "description": "Reflected user input parameter - potential XSS/injection point",
+    "tags": [
+      "xss",
+      "injection",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op107",
+    "name": "S3 Exposed Access",
+    "category": "cloud",
+    "pattern": "(?i)(?:public-read|public-read-write|authenticated-read).*(?:acl|bucket)",
+    "severity": "high",
+    "description": "S3 bucket with public ACL",
+    "tags": [
+      "aws",
+      "s3",
+      "exposure",
+      "acl"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op108",
+    "name": "Wayback API Endpoint",
+    "category": "recon",
+    "pattern": "(?i)/api/v[0-9]+/[a-z/]+(?:\\?[a-z=&]+)?",
+    "severity": "info",
+    "description": "API endpoint found in historical archive",
+    "tags": [
+      "api",
+      "wayback",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op109",
+    "name": "Hardcoded IP Address",
+    "category": "infrastructure",
+    "pattern": "(?<![0-9])(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?![0-9])",
+    "severity": "info",
+    "description": "IP address hardcoded in content",
+    "tags": [
+      "ip",
+      "infrastructure",
+      "recon"
+    ],
+    "source": "builtin"
+  },
+  {
+    "id": "op110",
+    "name": "Cloud Function URL",
+    "category": "cloud",
+    "pattern": "(?i)(?:cloudfunctions|lambda|functions)\\.(?:net|amazonaws\\.com|googleapis\\.com)/",
+    "severity": "medium",
+    "description": "Serverless function URL exposed",
+    "tags": [
+      "serverless",
+      "cloud",
+      "api"
+    ],
+    "source": "builtin"
+  }
+]

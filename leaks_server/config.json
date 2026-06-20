@@ -1,0 +1,11 @@
+{
+  "api_key": "<API key>",
+  "port": 5002,
+  "host": "0.0.0.0",
+  "dirs": [
+    ""
+  ],
+  "dehashed_email": "",
+  "dehashed_api_key": "",
+  "dehashed_enabled": true
+}

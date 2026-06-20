@@ -1,0 +1,8 @@
+alice@example.com:P@ssw0rd123
+adam.smith@testcorp.io:Admin1234!
+alex.jones@acme.com:letmein99
+admin@vulnerable.dev:admin
+anna.brown@company.org:Summer2023!
+a.cooper@mailtest.net:Cooper@2022
+alice.wonderland@fictitious.com:Rabbit1865!
+admin@testphish.local:TestPass#01

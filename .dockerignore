@@ -1,0 +1,22 @@
+# ── FEROXSEI OSINT .dockerignore ──────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.git/
+.gitignore
+.env
+.env.*
+*.db           # DB goes in /data volume, not baked into image
+screenshots/
+reports/
+uploads/
+*.log
+*.tmp
+node_modules/
+.DS_Store
+Thumbs.db

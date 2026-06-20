@@ -1,0 +1,31 @@
+# Enforce LF line endings for all files when cloned on Windows
+# This prevents "bad interpreter: No such file or directory" errors on .sh scripts
+
+* text=auto eol=lf
+
+# Shell scripts must always be LF
+*.sh  text eol=lf
+
+# Windows batch files must always be CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Python files
+*.py text eol=lf
+
+# Config and data files
+*.json text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.txt  text eol=lf
+*.md   text eol=lf
+*.env  text eol=lf
+Dockerfile text eol=lf
+
+# Binary files — never touch line endings
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.gif  binary
+*.pdf  binary
+*.db   binary

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto Popup Login</title>
+</head>
+<body>
+
+
+<script>
+function createLoginPopup() {
+  // Prevent creating multiple popups
+  if(document.getElementById('jsFakePopup')) return;
+
+  // Overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'jsFakePopup';
+  overlay.style.position = 'fixed';
+  overlay.style.top = 0;
+  overlay.style.left = 0;
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.background = 'rgba(0,0,0,0.4)';
+  overlay.style.display = 'flex';
+  overlay.style.justifyContent = 'center';
+  overlay.style.alignItems = 'center';
+  overlay.style.zIndex = '9999';
+
+  // Window
+  const win = document.createElement('div');
+  win.style.width = '450px';
+  win.style.background = '#fff';
+  win.style.borderRadius = '6px';
+  win.style.boxShadow = '0 10px 25px rgba(0,0,0,0.4)';
+  win.style.position = 'absolute';
+  win.style.top = '100px';
+  win.style.left = 'calc(50% - 225px)';
+  win.style.cursor = 'default';
+
+  // Title bar
+  const titleBar = document.createElement('div');
+  titleBar.style.background = '#2d2d2d';
+  titleBar.style.color = '#fff';
+  titleBar.style.padding = '8px 12px';
+  titleBar.style.display = 'flex';
+  titleBar.style.justifyContent = 'space-between';
+  titleBar.style.alignItems = 'center';
+  titleBar.style.fontSize = '14px';
+  titleBar.style.cursor = 'move';
+  titleBar.innerHTML = '<span>Sign in</span><div style="cursor:pointer;color:#fff">✕</div>';
+  titleBar.querySelector('div').onclick = () => document.body.removeChild(overlay);
+
+  // Fake URL bar
+  const urlBar = document.createElement('div');
+  urlBar.style.background = '#f1f1f1';
+  urlBar.style.padding = '6px 10px';
+  urlBar.style.fontSize = '13px';
+  urlBar.style.color = '#555';
+  urlBar.style.borderBottom = '1px solid #ddd';
+  urlBar.style.display = 'flex';
+  urlBar.style.alignItems = 'center';
+  urlBar.innerHTML = '<span style="width:14px;height:14px;background:green;border-radius:50%;display:inline-block;margin-right:6px;position:relative;"><span style="position:absolute;top:4px;left:4px;width:6px;height:6px;background:#fff;border-radius:50%;"></span></span>https://login.example.com';
+
+  // Content
+  const content = document.createElement('div');
+  content.style.padding = '25px';
+  content.innerHTML = `
+    <h2 style="margin-top:0;font-weight:600;">Sign in</h2>
+    <form id="jsLoginForm">
+      <input type="text" placeholder="Email or username" required style="width:100%;padding:10px;margin:10px 0;border-radius:4px;border:1px solid #ccc;box-sizing:border-box;">
+      <input type="password" placeholder="Password" required style="width:100%;padding:10px;margin:10px 0;border-radius:4px;border:1px solid #ccc;box-sizing:border-box;">
+      <button type="submit" style="width:100%;padding:10px;background:#0078D4;color:#fff;border:none;border-radius:4px;cursor:pointer;margin-top:10px;font-size:15px;">Sign In</button>
+    </form>
+    <div style="margin-top:10px;text-align:center;font-size:13px;">
+      <a href="#" style="color:#0078D4;text-decoration:none;margin:0 5px;">Sign Up</a> | 
+      <a href="#" style="color:#0078D4;text-decoration:none;margin:0 5px;">Forgot Password?</a>
+    </div>
+  `;
+
+  // Append
+  win.appendChild(titleBar);
+  win.appendChild(urlBar);
+  win.appendChild(content);
+  overlay.appendChild(win);
+  document.body.appendChild(overlay);
+
+  // Form submit
+  const form = document.getElementById('jsLoginForm');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Login submitted!');
+  });
+
+  // Close clicking outside
+  overlay.addEventListener('click', function(e) {
+    if(e.target === overlay) document.body.removeChild(overlay);
+  });
+
+  // Drag functionality
+  let isDragging = false;
+  let offsetX, offsetY;
+  titleBar.addEventListener('mousedown', function(e) {
+    isDragging = true;
+    const rect = win.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+  });
+  document.addEventListener('mousemove', function(e) {
+    if(isDragging){
+      win.style.left = e.clientX - offsetX + 'px';
+      win.style.top = e.clientY - offsetY + 'px';
+    }
+  });
+  document.addEventListener('mouseup', function(){ isDragging = false; });
+}
+
+// Auto-show popup on page load
+window.addEventListener('load', createLoginPopup);
+</script>
+
+</body>
+</html>
