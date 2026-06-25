@@ -177,11 +177,13 @@ class PhishingSender:
 
     def _sign_message(self, msg: MIMEMultipart) -> bytes:
         """Optionally sign the raw message with DKIM."""
-        # Use SMTP policy for proper \r\n line endings - MailHog (and real MTAs)
-        # require CRLF to correctly parse headers out of the DATA stream.
-        # Python's default compat32 policy uses \n which causes MailHog to treat
-        # the whole message (including headers) as an opaque body.
-        raw = msg.as_bytes(policy=_email_policy.SMTP)
+        # Use default compat32 serialization - it correctly base64-encodes UTF-8
+        # MIMEText parts and RFC-2047-encodes Subject, so the output is ASCII-safe.
+        # email.policy.SMTP (new EmailPolicy) fails on compat32-created MIME objects
+        # that contain non-ASCII / emoji characters (raises 'ascii' codec error).
+        # After serialisation, normalise line endings to CRLF as required by RFC 5321.
+        raw = msg.as_bytes()
+        raw = raw.replace(b'\r\n', b'\n').replace(b'\n', b'\r\n')
         key_path = self.profile.get("dkim_key_path", "")
         selector  = self.profile.get("dkim_selector", "")
         domain    = self.profile.get("dkim_domain", "")
