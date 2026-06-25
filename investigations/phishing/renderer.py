@@ -4,7 +4,7 @@ FEROXSEI Phishing · Template Renderer
 Renders GoPhish-compatible template variables:
 
   {{.FirstName}}   {{.LastName}}   {{.Email}}   {{.Position}}
-  {{.URL}}         {{.TrackingURL}} {{.From}}   {{.RId}}
+  {{.URL}}         {{.TrackingURL}} {{.AwarenessURL}} {{.From}}   {{.RId}}
 
 Also supports custom variables: {{.CustomVar}}
 """
@@ -18,7 +18,7 @@ import uuid
 # ── Variable registry ─────────────────────────────────────────────────────────
 BUILTIN_VARS = {
     "FirstName", "LastName", "Email", "Position",
-    "URL", "TrackingURL", "From", "RId",
+    "URL", "TrackingURL", "AwarenessURL", "From", "RId",
     "Company", "FullName",
 }
 
@@ -28,6 +28,7 @@ def render_template(
     target: dict,
     campaign_url: str = "",
     tracking_url: str = "",
+    awareness_url: str = "",
     sender_name: str = "",
     rid: str = "",
 ) -> str:
@@ -44,6 +45,8 @@ def render_template(
         Landing page URL embedded via {{.URL}}.
     tracking_url : str
         Open-tracking pixel URL embedded via {{.TrackingURL}}.
+    awareness_url : str
+        Security awareness page URL embedded via {{.AwarenessURL}}.
     sender_name : str
         Display name of the sender for {{.From}}.
     rid : str
@@ -65,16 +68,17 @@ def render_template(
     tracking_url_rid = f"{tracking_url}{sep}rid={rid}" if tracking_url else ""
 
     substitutions: dict[str, str] = {
-        "FirstName":   target.get("first", ""),
-        "LastName":    target.get("last", ""),
-        "FullName":    full_name,
-        "Email":       target.get("email", ""),
-        "Position":    target.get("position", ""),
-        "URL":         campaign_url_rid,
-        "TrackingURL": tracking_url_rid,
-        "From":        sender_name,
-        "RId":         rid,
-        "Company":     target.get("company", ""),
+        "FirstName":    target.get("first", ""),
+        "LastName":     target.get("last", ""),
+        "FullName":     full_name,
+        "Email":        target.get("email", ""),
+        "Position":     target.get("position", ""),
+        "URL":          campaign_url_rid,
+        "TrackingURL":  tracking_url_rid,
+        "AwarenessURL": awareness_url,
+        "From":         sender_name,
+        "RId":          rid,
+        "Company":      target.get("company", ""),
     }
 
     # Merge any custom fields from target dict
@@ -120,6 +124,7 @@ def preview_template(template_html: str, sample_data: dict | None = None) -> str
         target=sample,
         campaign_url="https://feroxsei-phish.local/landing",
         tracking_url="https://feroxsei-phish.local/track/open.png",
+        awareness_url="https://feroxsei-phish.local/phish/awareness/preview/preview01",
         sender_name="IT Security Team",
         rid="preview01",
     )

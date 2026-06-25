@@ -67,6 +67,9 @@ class PhishingTracker:
     def submit_url(self, campaign_id: str, rid: str) -> str:
         return f"{self.base_url}/phish/track/submit/{campaign_id}/{rid}"
 
+    def awareness_url(self, campaign_id: str, rid: str) -> str:
+        return f"{self.base_url}/phish/awareness/{campaign_id}/{rid}"
+
     # ── Event handlers ────────────────────────────────────────────────────────
 
     def record_open(self, campaign_id: str, rid: str, ip: str, ua: str) -> None:

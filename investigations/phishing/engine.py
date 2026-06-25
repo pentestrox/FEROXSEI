@@ -257,8 +257,9 @@ class PhishingEngine:
             }
 
             # ── Build tracking URLs ───────────────────────────────────────────
-            open_px_url = tracker.open_pixel_url(campaign_id, rid)
-            click_url   = tracker.click_url(campaign_id, rid, landing_url)
+            open_px_url   = tracker.open_pixel_url(campaign_id, rid)
+            click_url     = tracker.click_url(campaign_id, rid, landing_url)
+            awareness_url = tracker.awareness_url(campaign_id, rid)
 
             # ── Render template ───────────────────────────────────────────────
             html_body = render_template(
@@ -266,6 +267,7 @@ class PhishingEngine:
                 target=target,
                 campaign_url=click_url,
                 tracking_url=open_px_url,
+                awareness_url=awareness_url,
                 sender_name=profile.get("from_name", ""),
                 rid=rid,
             )
